@@ -9,9 +9,7 @@ const vcp = new VCP({
   chargePointId: process.env["CP_ID"] ?? "123456",
   ocppVersion: OcppVersion.OCPP_1_6,
   basicAuthPassword: process.env["PASSWORD"] ?? undefined,
-  adminWsPort: parseInt(
-    process.env["ADMIN_PORT"] ?? "9999"
-  ),
+  adminWsPort: parseInt(process.env["ADMIN_PORT"] ?? "9999"),
 });
 
 (async () => {
@@ -32,7 +30,16 @@ const vcp = new VCP({
     payload: {
       connectorId: 1,
       errorCode: "NoError",
-      status: "Available",
+      status: "Preparing",
+    },
+  });
+  vcp.send({
+    messageId: uuid.v4(),
+    action: "StatusNotification",
+    payload: {
+      connectorId: 2,
+      errorCode: "NoError",
+      status: "Preparing",
     },
   });
 })();

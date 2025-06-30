@@ -14,11 +14,7 @@ interface TransactionState {
 export class TransactionManager {
   transactions: Map<string, TransactionState> = new Map();
 
-  startTransaction(
-    vcp: VCP,
-    transactionId: number,
-    connectorId: number
-  ) {
+  startTransaction(vcp: VCP, transactionId: number, connectorId: number) {
     const meterValuesTimer = setInterval(() => {
       vcp.send(
         call("MeterValues", {
@@ -32,6 +28,11 @@ export class TransactionManager {
                   value: (this.getMeterValue(transactionId) / 1000).toString(),
                   measurand: "Energy.Active.Import.Register",
                   unit: "kWh",
+                },
+                {
+                  value: (this.getMeterValue(transactionId) / 1000).toString(),
+                  measurand: "Power.Active.Import",
+                  unit: "W",
                 },
               ],
             },

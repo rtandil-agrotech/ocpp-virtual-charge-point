@@ -5,7 +5,7 @@ sendAdminCommand({
   action: "StatusNotification",
   messageId: uuid.v4(),
   payload: {
-    connectorId: 1,
+    connectorId: 2,
     errorCode: "NoError",
     status: "Preparing",
   },
